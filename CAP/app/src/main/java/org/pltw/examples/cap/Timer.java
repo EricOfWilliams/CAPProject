@@ -3,8 +3,8 @@ package org.pltw.examples.cap;
 /**
  * Created by Vikas A., Tudor C., Michael S., Eric W. on 05 17, 2017.
  *
- * This keeps track of the time in each rep, whether or not you should be resting, and holds the method
- * to stop working out.
+ * This keeps track of the time in each rep, whether or not you should be resting, and contains
+ * the method to stop working out.
  */
 public class Timer {
     // Fields
