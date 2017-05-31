@@ -28,6 +28,14 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_timer_settings, container, false);
 
+        // Reading stuff from memory
+        Context context = getActivity();
+        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        int reps = sharedPref.getInt(getString(R.string.saved_reps), 0);
+        int timeExercising = sharedPref.getInt(getString(R.string.saved_time_exercising), 0);
+        int timeResting = sharedPref.getInt(getString(R.string.saved_time_resting), 0);
+
         // Instantiate the fields
         mEditReps = (EditText) rootView.findViewById(R.id.mEditReps);
         mEditTimeExercising = (EditText) rootView.findViewById(R.id.mEditTimeExercising);
@@ -35,20 +43,22 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
 
         mSaveButton = (Button) rootView.findViewById(R.id.mSaveButton);
 
-        final SharedPreferences sharedPref = getActivity().getSharedPreferences("com.pltw.examples.cap.TimerSettings", Context.MODE_PRIVATE);
+        mEditReps.setText(Integer.toString(reps));
+        mEditTimeExercising.setText(Integer.toString(timeExercising));
+        mEditTimeResting.setText(Integer.toString(timeResting));
+
         final SharedPreferences.Editor editor = sharedPref.edit();
-
-        /*mEditReps.setText(sharedPref.getInt(R.integer.saved_reps, 10));
-
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putInt(R.integer.saved_reps, mEditReps.getText());
+                editor.putInt(getString(R.string.saved_reps), Integer.valueOf(mEditReps.getText().toString()));
+                editor.putInt(getString(R.string.saved_time_exercising), Integer.valueOf(mEditTimeExercising.getText().toString()));
+                editor.putInt(getString(R.string.saved_time_resting), Integer.valueOf(mEditTimeResting.getText().toString()));
                 editor.commit();
             }
-        });*/
+        });
 
-
+        // TODO: figure out why time exercising is being overwritten by time resting
 
         return rootView;
     }

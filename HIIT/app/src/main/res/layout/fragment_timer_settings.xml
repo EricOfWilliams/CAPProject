@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/mEditReps"/>
+            android:id="@+id/mEditReps"
+            android:numeric="integer"/>
 
     </TableRow>
 
