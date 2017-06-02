@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <Button
+        android:text="Press to Start"
+        android:id="@+id/startButton"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:nestedScrollingEnabled="false"
+        android:padding="40dp"
+        android:background="@android:color/holo_green_dark"
+        android:layout_column="12"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Press Start Button"
+        android:id="@+id/timer"
+        android:textSize="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/status"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Press Start Button"
+        android:id="@+id/status"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:textSize="40dp"/>
+
+</RelativeLayout>

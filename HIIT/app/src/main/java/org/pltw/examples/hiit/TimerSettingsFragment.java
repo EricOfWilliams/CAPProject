@@ -43,17 +43,27 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
 
         mSaveButton = (Button) rootView.findViewById(R.id.mSaveButton);
 
+        // Put the previous values into the fields
         mEditReps.setText(Integer.toString(reps));
         mEditTimeExercising.setText(Integer.toString(timeExercising));
         mEditTimeResting.setText(Integer.toString(timeResting));
 
+        // Create a listener
         final SharedPreferences.Editor editor = sharedPref.edit();
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putInt(getString(R.string.saved_reps), Integer.valueOf(mEditReps.getText().toString()));
-                editor.putInt(getString(R.string.saved_time_exercising), Integer.valueOf(mEditTimeExercising.getText().toString()));
-                editor.putInt(getString(R.string.saved_time_resting), Integer.valueOf(mEditTimeResting.getText().toString()));
+                // Read values from the text fields
+                int reps = Integer.valueOf(mEditReps.getText().toString());
+                int exercising = Integer.valueOf(mEditTimeExercising.getText().toString());
+                int resting = Integer.valueOf(mEditTimeResting.getText().toString());
+
+                // Store text field values
+                editor.putInt(getString(R.string.saved_reps), reps);
+                editor.putInt(getString(R.string.saved_time_exercising), exercising);
+                editor.putInt(getString(R.string.saved_time_resting), resting);
+
+                // Save the values
                 editor.commit();
             }
         });

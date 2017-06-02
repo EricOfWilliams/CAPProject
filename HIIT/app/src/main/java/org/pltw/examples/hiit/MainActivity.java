@@ -25,15 +25,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -45,7 +36,7 @@ public class MainActivity extends AppCompatActivity
 
         // Switch to home screen
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new HomeScreenFragment());
+        ft.replace(R.id.content_frame, new TimerFragment());
         ft.commit();
     }
 
@@ -90,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         Fragment contentFragment = null;
 
         if (id == R.id.nav_home) {
-            contentFragment = new HomeScreenFragment();
+            contentFragment = new TimerFragment();
         } else if (id == R.id.nav_settings) {
             contentFragment = new TimerSettingsFragment();
         }

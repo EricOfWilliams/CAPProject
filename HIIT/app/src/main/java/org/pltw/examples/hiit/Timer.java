@@ -58,9 +58,9 @@ public class Timer {
         return stopped;
     }
 
-    public long getTimeLeft()
+    public int getTimeLeft()
     {
-        return timeLeft.getTimeLeft();
+        return (int) timeLeft.getTimeLeft();
     }
 
     public Countdown getCountdown()
@@ -91,7 +91,7 @@ public class Timer {
      * Switches resting to true
      * Makes a new org.pltw.examples.hiit.Countdown with the time for resting
      */
-    public void switchToResting()
+    private void switchToResting()
     {
         resting = true;
         timeLeft = new Countdown(timeResting);
@@ -102,9 +102,36 @@ public class Timer {
      * Switches resting to false
      * Makes a new org.pltw.examples.hiit.Countdown with the time for exercising
      */
-    public void switchToExercising()
+    private void switchToExercising()
     {
         resting = false;
         timeLeft = new Countdown(timeExercising);
+    }
+
+    /*
+     * Switch from exercising to resting, or resting to exercising
+     */
+    public void switchStatus()
+    {
+        if (isResting()) { // Resting --> Exercising
+            switchToExercising();
+        }
+        else { // Exercising --> Resting
+            switchToResting();
+        }
+    }
+
+    /*
+     * Return whether exercising or resting as a string
+     */
+    public String getStatus()
+    {
+        if (isResting())
+        {
+            return "Resting";
+        }
+        else {
+            return "Exercising";
+        }
     }
 }
