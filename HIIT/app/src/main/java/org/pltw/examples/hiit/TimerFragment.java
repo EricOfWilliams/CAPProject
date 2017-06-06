@@ -15,10 +15,11 @@ import android.widget.TextView;
  * Created by Vikas A., Tudor C., Michael S., Eric W. on 05 25, 2017.
  */
 public class TimerFragment extends Fragment {
-    final private int TICK_INTERVAL = 10;
+    final private int TICK_INTERVAL = 100;
     private Button mStartButton;
     private TextView mTime; // Time left on the timer
     private TextView mStatus; // Whether resting or exercising
+    private TextView mReps; // Amount of reps
     private Timer mTimer = new Timer(0,0,0);
     private CountDownTimer mCountdownTimer;
 
@@ -35,34 +36,51 @@ public class TimerFragment extends Fragment {
         final int timeExercising = sharedPref.getInt(getString(R.string.saved_time_exercising), 0);
         final int timeResting = sharedPref.getInt(getString(R.string.saved_time_resting), 0);
 
-
         // Instantiate the fields
         mTime = (TextView) rootView.findViewById(R.id.timer);
         mStatus = (TextView) rootView.findViewById(R.id.status);
+        mReps = (TextView) rootView.findViewById(R.id.reps);
 
         mStartButton = (Button) rootView.findViewById(R.id.startButton);
+
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mTimer = new Timer(reps, timeExercising, timeResting);
                 mTime.setText(getSecondsLeft());
                 mStatus.setText("Exercising");
+                mReps.setText("Rep #1");
 
                 long totalTime = (timeExercising + timeResting) * reps * 1000; // Total amount of time the timer will run for in milliseconds
+
+
+                // Countdown listener, runs necessary methods on the timer
                 mCountdownTimer = new CountDownTimer(totalTime, TICK_INTERVAL) {
+                    int repNumber = 1;
+
                     @Override
                     public void onTick(long l) {
                         if (mTimer.isTimeOut())
                         {
                             mTimer.switchStatus();
                             mStatus.setText(mTimer.getStatus());
+
+                            System.out.println(mTimer.getIterations());
+
+                            if (!mTimer.isResting())
+                            {
+                                repNumber++;
+                            }
+
                         }
                         mTime.setText(getSecondsLeft());
+                        mReps.setText("Rep #" + repNumber);
                     }
 
                     @Override
                     public void onFinish() {
                         mTimer.stop();
+                        mStatus.setText("Finished!");
                     }
                 }.start();
             }
@@ -78,6 +96,6 @@ public class TimerFragment extends Fragment {
      */
     private String getSecondsLeft()
     {
-        return Double.toString(mTimer.getTimeLeft()  / 1000.0);
+        return Integer.toString(mTimer.getTimeLeft() / 1000) + "s";
     }
 }

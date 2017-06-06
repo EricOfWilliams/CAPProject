@@ -134,4 +134,11 @@ public class Timer {
             return "Exercising";
         }
     }
+
+    // Decrements the amount of iterations left
+    public void decrement()
+    {
+        iterations--;
+    }
+
 }
