@@ -10,5 +10,6 @@
     <string name="saved_reps">10</string>
     <string name="saved_time_exercising">1</string>
     <string name="saved_time_resting">0</string>
+    <string name="soundEnabled">true</string>
 
 </resources>

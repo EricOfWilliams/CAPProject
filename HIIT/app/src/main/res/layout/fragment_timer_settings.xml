@@ -15,7 +15,8 @@
             android:text="Reps:"
             android:id="@+id/mReps"
             android:layout_column="0"
-            android:textAlignment="textEnd"/>
+            android:textAlignment="textEnd"
+            android:textSize="24dp"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:text="Time Exercising:"
             android:id="@+id/mTimeExercising"
             android:layout_column="0"
-            android:textAlignment="textEnd"/>
+            android:textAlignment="textEnd"
+            android:textSize="24dp"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -56,7 +58,8 @@
             android:text="Time Resting:"
             android:id="@+id/mTimeResting"
             android:layout_column="0"
-            android:textAlignment="textEnd"/>
+            android:textAlignment="textEnd"
+            android:textSize="24dp"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -65,6 +68,29 @@
             android:ems="10"
             android:id="@+id/mEditTimeResting"
             android:layout_column="1"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Sound:"
+            android:id="@+id/soundPrompt"
+            android:layout_column="0"
+            android:textSize="24dp"
+            android:textAlignment="textEnd"/>
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:id="@+id/soundButton"
+            android:layout_column="1"
+            android:checked="true"/>
     </TableRow>
 
     <TableRow

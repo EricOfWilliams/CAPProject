@@ -39,6 +39,7 @@ public class TimerFragment extends Fragment {
         final int reps = sharedPref.getInt(getString(R.string.saved_reps), 0);
         final int timeExercising = sharedPref.getInt(getString(R.string.saved_time_exercising), 0);
         final int timeResting = sharedPref.getInt(getString(R.string.saved_time_resting), 0);
+        final boolean soundEnabled = sharedPref.getBoolean(getString(R.string.soundEnabled), true);
 
         /*
          * Timer stuff
@@ -59,13 +60,16 @@ public class TimerFragment extends Fragment {
                     mTimer.switchStatus();
                     mStatus.setText(mTimer.getStatus());
 
-                    // Make a beep sound?
-                    try {
-                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                        Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-                        r.play();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    // Make a beep sound
+                    if (soundEnabled)
+                    {
+                        try {
+                            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                            Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
+                            r.play();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     // Increment the reps
@@ -114,6 +118,7 @@ public class TimerFragment extends Fragment {
                     public void onClick(View view)
                     {
                         mCountdownTimer.cancel();
+                        mStatus.setText("Stopped");
                     }
                 });
             }
