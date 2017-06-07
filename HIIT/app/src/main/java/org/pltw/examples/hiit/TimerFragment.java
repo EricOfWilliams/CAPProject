@@ -36,6 +36,44 @@ public class TimerFragment extends Fragment {
         final int timeExercising = sharedPref.getInt(getString(R.string.saved_time_exercising), 0);
         final int timeResting = sharedPref.getInt(getString(R.string.saved_time_resting), 0);
 
+        /*
+         * Timer stuff
+         */
+        long totalTime = (timeExercising + timeResting) * reps * 1000; // Total amount of time the timer will run for in milliseconds
+
+        // Countdown listener, runs necessary methods on the timer
+        mCountdownTimer = new CountDownTimer(totalTime, TICK_INTERVAL)
+        {
+            int repNumber = 1;
+
+            @Override
+            public void onTick(long l)
+            {
+                if (mTimer.isTimeOut())
+                {
+                    mTimer.switchStatus();
+                    mStatus.setText(mTimer.getStatus());
+
+                    System.out.println(mTimer.getIterations());
+
+                    if (!mTimer.isResting())
+                    {
+                        repNumber++;
+                    }
+
+                }
+                mTime.setText(getSecondsLeft());
+                mReps.setText("Rep #" + repNumber);
+            }
+
+            @Override
+            public void onFinish()
+            {
+                mTimer.stop();
+                mStatus.setText("Finished!");
+            }
+        };
+
         // Instantiate the fields
         mTime = (TextView) rootView.findViewById(R.id.timer);
         mStatus = (TextView) rootView.findViewById(R.id.status);
@@ -51,38 +89,18 @@ public class TimerFragment extends Fragment {
                 mStatus.setText("Exercising");
                 mReps.setText("Rep #1");
 
-                long totalTime = (timeExercising + timeResting) * reps * 1000; // Total amount of time the timer will run for in milliseconds
+                mCountdownTimer.start();
 
-
-                // Countdown listener, runs necessary methods on the timer
-                mCountdownTimer = new CountDownTimer(totalTime, TICK_INTERVAL) {
-                    int repNumber = 1;
-
+                // Switch to the stop button
+                mStartButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
+                mStartButton.setText("Oh God, Kill Me Now");
+                mStartButton.setOnClickListener(new View.OnClickListener(){
                     @Override
-                    public void onTick(long l) {
-                        if (mTimer.isTimeOut())
-                        {
-                            mTimer.switchStatus();
-                            mStatus.setText(mTimer.getStatus());
-
-                            System.out.println(mTimer.getIterations());
-
-                            if (!mTimer.isResting())
-                            {
-                                repNumber++;
-                            }
-
-                        }
-                        mTime.setText(getSecondsLeft());
-                        mReps.setText("Rep #" + repNumber);
+                    public void onClick(View view)
+                    {
+                        mCountdownTimer.cancel();
                     }
-
-                    @Override
-                    public void onFinish() {
-                        mTimer.stop();
-                        mStatus.setText("Finished!");
-                    }
-                }.start();
+                });
             }
         });
 

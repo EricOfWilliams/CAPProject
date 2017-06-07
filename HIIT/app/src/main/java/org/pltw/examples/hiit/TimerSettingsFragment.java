@@ -68,8 +68,6 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
             }
         });
 
-        // TODO: figure out why time exercising is being overwritten by time resting
-
         return rootView;
     }
 }

@@ -4,12 +4,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Home Screen"/>
+            android:icon="@drawable/ic_menu_timer"
+            android:title="Timer"/>
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Timer Settings"/>
+            android:icon="@drawable/ic_menu_settings"
+            android:title="Settings"/>
     </group>
 
 </menu>
