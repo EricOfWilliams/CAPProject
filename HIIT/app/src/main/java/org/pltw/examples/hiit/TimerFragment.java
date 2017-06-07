@@ -2,6 +2,9 @@ package org.pltw.examples.hiit;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -56,8 +59,16 @@ public class TimerFragment extends Fragment {
                     mTimer.switchStatus();
                     mStatus.setText(mTimer.getStatus());
 
-                    System.out.println(mTimer.getIterations());
+                    // Make a beep sound?
+                    try {
+                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
+                        r.play();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
+                    // Increment the reps
                     if (!mTimer.isResting())
                     {
                         repNumber++;
