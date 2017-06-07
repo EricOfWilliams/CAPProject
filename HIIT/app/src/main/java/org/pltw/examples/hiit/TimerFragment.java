@@ -50,6 +50,7 @@ public class TimerFragment extends Fragment {
             @Override
             public void onTick(long l)
             {
+                // Switching between exercising and resting
                 if (mTimer.isTimeOut())
                 {
                     mTimer.switchStatus();
@@ -63,6 +64,8 @@ public class TimerFragment extends Fragment {
                     }
 
                 }
+
+                // Update the counters
                 mTime.setText(getSecondsLeft());
                 mReps.setText("Rep #" + repNumber);
             }
