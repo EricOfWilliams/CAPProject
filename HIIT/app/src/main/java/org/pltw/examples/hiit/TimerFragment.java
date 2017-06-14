@@ -15,6 +15,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.media.SoundPool;
 
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by Vikas A., Tudor C., Michael S., Eric W. on 05 25, 2017.
  */
@@ -39,6 +48,7 @@ public class TimerFragment extends Fragment {
         final int reps = sharedPref.getInt(getString(R.string.saved_reps), 0);
         final int timeExercising = sharedPref.getInt(getString(R.string.saved_time_exercising), 0);
         final int timeResting = sharedPref.getInt(getString(R.string.saved_time_resting), 0);
+        final String exercise = sharedPref.getString(getString(R.string.exercise), "Pushups");
         final boolean soundEnabled = sharedPref.getBoolean(getString(R.string.soundEnabled), true);
 
         /*
@@ -49,7 +59,7 @@ public class TimerFragment extends Fragment {
         // Countdown listener, runs necessary methods on the timer
         mCountdownTimer = new CountDownTimer(totalTime, TICK_INTERVAL)
         {
-            int repNumber = 1;
+            public int repNumber = 1;
 
             @Override
             public void onTick(long l)
@@ -83,6 +93,7 @@ public class TimerFragment extends Fragment {
                 // Update the counters
                 mTime.setText(getSecondsLeft());
                 mReps.setText("Rep #" + repNumber);
+                mTimer.setIterations(repNumber);
             }
 
             @Override
@@ -90,6 +101,12 @@ public class TimerFragment extends Fragment {
             {
                 mTimer.stop();
                 mStatus.setText("Finished!");
+                storeString(exercise, repNumber);
+            }
+
+            public int getRepNumber()
+            {
+                return repNumber;
             }
         };
 
@@ -117,6 +134,7 @@ public class TimerFragment extends Fragment {
                     @Override
                     public void onClick(View view)
                     {
+                        storeString(exercise, mTimer.getIterations());
                         mCountdownTimer.cancel();
                         mStatus.setText("Stopped");
                     }
@@ -125,7 +143,6 @@ public class TimerFragment extends Fragment {
         });
 
         return rootView;
-
     }
 
     /*
@@ -135,5 +152,56 @@ public class TimerFragment extends Fragment {
     private String getSecondsLeft()
     {
         return Integer.toString(mTimer.getTimeLeft() / 1000) + "s";
+    }
+
+    /*
+     * Stores the given exercise and reps
+     */
+    private void storeString(String exercise, int reps)
+    {
+        // Get the date
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String dateString = dateFormat.format(date);
+
+        // Concatenate the data
+        String string = reps + " rep(s) of " + exercise + " at " + dateString;
+
+        // Store the string
+        Context context = getActivity();
+        SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        // Read the data from the stored array
+        int size = sharedPref.getInt(getString(R.string.data_array_size), 0);
+        String[] dataArray = new String[size];
+        for(int i=0; i < size; i++)
+        {
+            dataArray[i] = sharedPref.getString("array_" + i, null);
+        }
+
+        // Convert the array to arraylist
+        List<String> dataList = new ArrayList<String>();
+        for (String entry : dataArray) {
+            dataList.add(entry);
+        }
+
+        // Add the string to the array
+        dataList.add(string);
+
+        // Convert the updated arraylist to array
+        dataArray = new String[size+1];
+        for (int i = 0; i < size + 1; i++)
+        {
+            dataArray[i] = dataList.get(i);
+        }
+
+        // Store the array
+        editor.putInt(getString(R.string.data_array_size), dataArray.length);
+        for(int i=0; i < dataArray.length; i++) {
+            editor.putString("array_" + i, dataArray[i]);
+        }
+
+        editor.commit();
     }
 }

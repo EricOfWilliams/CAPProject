@@ -1,7 +1,7 @@
 package org.pltw.examples.hiit;
 
 /**
- * Created by Vikas A., Tudor C., Michael S., Eric W. on 05 17, 2017.
+ * Created by Eric W. on 05 17, 2017.
  *
  * Counts down by seconds
  * Helper class for org.pltw.examples.hiit.Timer

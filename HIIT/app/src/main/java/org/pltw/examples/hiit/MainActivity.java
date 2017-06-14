@@ -19,6 +19,9 @@ import android.view.WindowManager;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // Global constants
+    public final String FILE_NAME = "log_file";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,8 @@ public class MainActivity extends AppCompatActivity
             contentFragment = new TimerFragment();
         } else if (id == R.id.nav_settings) {
             contentFragment = new TimerSettingsFragment();
+        } else if (id == R.id.nav_log) {
+            contentFragment = new LogFragment();
         }
 
         if (contentFragment != null)

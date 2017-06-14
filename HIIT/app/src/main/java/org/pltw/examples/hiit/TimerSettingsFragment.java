@@ -19,6 +19,7 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
     private EditText mEditReps;
     private EditText mEditTimeExercising;
     private EditText mEditTimeResting;
+    private EditText mEditExercise;
     private ToggleButton mSoundSwitch;
 
     private Button mSaveButton;
@@ -37,12 +38,14 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
         int reps = sharedPref.getInt(getString(R.string.saved_reps), 0);
         int timeExercising = sharedPref.getInt(getString(R.string.saved_time_exercising), 0);
         int timeResting = sharedPref.getInt(getString(R.string.saved_time_resting), 0);
+        String exercise = sharedPref.getString(getString(R.string.exercise), "");
         boolean soundEnabled = sharedPref.getBoolean(getString(R.string.soundEnabled), true);
 
         // Instantiate the fields
         mEditReps = (EditText) rootView.findViewById(R.id.mEditReps);
         mEditTimeExercising = (EditText) rootView.findViewById(R.id.mEditTimeExercising);
         mEditTimeResting = (EditText) rootView.findViewById(R.id.mEditTimeResting);
+        mEditExercise = (EditText) rootView.findViewById(R.id.editExercise);
         mSoundSwitch = (ToggleButton) rootView.findViewById(R.id.soundButton);
 
         mSaveButton = (Button) rootView.findViewById(R.id.mSaveButton);
@@ -51,6 +54,7 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
         mEditReps.setText(Integer.toString(reps));
         mEditTimeExercising.setText(Integer.toString(timeExercising));
         mEditTimeResting.setText(Integer.toString(timeResting));
+        mEditExercise.setText(exercise);
         mSoundSwitch.setChecked(soundEnabled);
 
         // Create a listener
@@ -62,12 +66,14 @@ public class TimerSettingsFragment extends android.support.v4.app.Fragment
                 int reps = Integer.valueOf(mEditReps.getText().toString());
                 int exercising = Integer.valueOf(mEditTimeExercising.getText().toString());
                 int resting = Integer.valueOf(mEditTimeResting.getText().toString());
+                String exercise = mEditExercise.getText().toString();
                 boolean soundEnabled = mSoundSwitch.isChecked();
 
                 // Store text field values
                 editor.putInt(getString(R.string.saved_reps), reps);
                 editor.putInt(getString(R.string.saved_time_exercising), exercising);
                 editor.putInt(getString(R.string.saved_time_resting), resting);
+                editor.putString(getString(R.string.exercise), exercise);
                 editor.putBoolean(getString(R.string.soundEnabled), soundEnabled);
 
                 // Save the values
