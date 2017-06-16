@@ -1,7 +1,7 @@
 package org.pltw.examples.hiit;
 
 /**
- * Created by Vikas A., Tudor C., Michael S., Eric W. on 05 17, 2017.
+ * Created by Eric W. on 05 17, 2017.
  *
  * This keeps track of the time in each rep, whether or not you should be resting, and contains
  * the method to stop working out.
@@ -38,10 +38,12 @@ public class Timer {
     }
 
     // Getters
+    // Return whether or not is resting
     public boolean isResting() {
         return resting;
     }
 
+    // Return the amount of iterations that have gone through
     public int getIterations() {
         return iterations;
     }
@@ -58,11 +60,13 @@ public class Timer {
         return stopped;
     }
 
+    // Get time remaining on the countdown
     public int getTimeLeft()
     {
         return (int) timeLeft.getTimeLeft();
     }
 
+    // Return the countdown object
     public Countdown getCountdown()
     {
         return timeLeft;
@@ -74,6 +78,7 @@ public class Timer {
     }
 
     // Setters
+    // Set the iteration the timer is on
     public void setIterations(int iterations) {
         this.iterations = iterations;
     }

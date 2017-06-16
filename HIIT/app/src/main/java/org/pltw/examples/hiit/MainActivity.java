@@ -16,11 +16,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+
+/*
+ * This app is created by:
+ * Vikas A.
+ * Tudor C.
+ * Michael S.
+ * Eric W.
+ *
+ * Our client is Patrick W.
+ *
+ * This file is created by Eric W.
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    // Global constants
-    public final String FILE_NAME = "log_file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         // Disable screen dimming
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        // Switch to home screen
+        // Switch to timer screen as the first screen
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, new TimerFragment());
         ft.commit();
@@ -88,13 +97,14 @@ public class MainActivity extends AppCompatActivity
         Fragment contentFragment = null;
 
         if (id == R.id.nav_home) {
-            contentFragment = new TimerFragment();
+            contentFragment = new TimerFragment(); // Timer
         } else if (id == R.id.nav_settings) {
-            contentFragment = new TimerSettingsFragment();
+            contentFragment = new TimerSettingsFragment(); // Settings
         } else if (id == R.id.nav_log) {
-            contentFragment = new LogFragment();
+            contentFragment = new LogFragment(); // Log
         }
 
+        // Switch to the selected screen
         if (contentFragment != null)
         {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -102,6 +112,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
 
+        // Close the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
