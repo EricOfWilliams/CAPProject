@@ -17,7 +17,7 @@ import android.widget.ToggleButton;
  * Created by Eric W. on 6/12/2017.
  */
 public class LogFragment extends Fragment {
-    private TextView mList;
+    private TextView mList; // Displays the list of text
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -25,9 +25,10 @@ public class LogFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_log, container, false);
 
+        // Instantiate mList
         mList = (TextView) rootView.findViewById(R.id.dataView);
 
-        // Reading stuff from memory
+        // Prep the shared preferences
         Context context = getActivity();
         SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
@@ -39,16 +40,16 @@ public class LogFragment extends Fragment {
             dataArray[i] = sharedPref.getString("array_" + i, null);
         }
 
-        // Put the data into the text view
+        // Put the data into the text view, starting with the most recent value, going to oldest
         String data = dataArray[size - 1];
-        for (int i = size - 2; i >= 0; i--)
+        for (int i = size - 2; i >= 0; i--) // Go backwards through the array
         {
-            if (dataArray[i] != null) { // Don't use null values in the storage
-                data = data + "\n" + dataArray[i];
+            if (dataArray[i] != null) { // Don't display any null values
+                data = data + "\n" + dataArray[i]; // Format it into a list w/ line breaks
             }
         }
 
-        mList.setText(data);
+        mList.setText(data); // Display the data
 
         return rootView;
     }
