@@ -93,7 +93,10 @@ public class MainActivity extends AppCompatActivity
             contentFragment = new TimerSettingsFragment();
         } else if (id == R.id.nav_log) {
             contentFragment = new LogFragment();
+        } else if (id == R.id.nav_movement) {
+            contentFragment = new MovementDetectorFragment();
         }
+
 
         if (contentFragment != null)
         {
